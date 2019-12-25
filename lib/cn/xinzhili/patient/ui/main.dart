@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/cn/xinzhili/patient/ui/medic/medic_plan.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(MyApp());
 
@@ -89,23 +92,52 @@ class _MyHomePageState extends State<MyHomePage> {
           // center the children vertically; the main axis here is the vertical
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+        Column(
+        children: [Text("巨武国第一个Flutter项目")],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      Column(
+        children: [
+          Text(
+            'You have pushed the button this many times:',
+          ),
+        ],
+      ),
+      Column(
+        children: [
+          Text(
+            '$_counter',
+            style: Theme
+                .of(context)
+                .textTheme
+                .display1,
+          ),
+        ],
+      ),
+      Column(
+        children: [
+          RaisedButton(
+            onPressed: () {
+              const urlString = "https://www.baidu.com/";
+              launch(urlString);
+            },
+            child: Text("打开百度"),
+          )
+        ],
+      ),
+      Column(
+          children: [
+          MedicPlanListUI()
+      ],
+    )],
+    ),
+    ),
+    floatingActionButton: FloatingActionButton(
+    onPressed: _incrementCounter,
+    tooltip: 'Increment',
+    child: Icon(Icons.add),
+    ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
