@@ -61,16 +61,16 @@ class PlanBean {
   int zone;
   int positionNo;
   String dosageUnit;
-  Null started;
-  Null ended;
+  int started;
+  int ended;
   int remindFirstAt;
   String boxUuid;
-  Null planSeqWithBox;
-  Null dosageFormUnit;
-  Null commodityName;
-  Null ingredient;
-  Null isUnknown;
-  Null imageId;
+  int planSeqWithBox;
+  String dosageFormUnit;
+  String commodityName;
+  String ingredient;
+  String isUnknown;
+  List<dynamic> imageId;
 
   PlanBean(
       {this.id,

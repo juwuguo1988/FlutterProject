@@ -1,7 +1,10 @@
-import 'dart:convert';
+import 'dart:collection';
+import 'dart:convert' as Convert;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/cn/xinzhili/patient/http/API.dart';
+import 'package:flutter_app/cn/xinzhili/patient/http/http_request.dart';
 import 'package:flutter_app/cn/xinzhili/patient/service/http_service.dart';
 import 'package:flutter_app/cn/xinzhili/patient/model/medic_plan_model.dart';
 
@@ -12,28 +15,33 @@ class MedicPlanListUI extends StatefulWidget {
 class _MedicPlanListUIState extends State<MedicPlanListUI> {
   BaseMedicPlanResponse mBaseMedicPlanResponse;
   var scrollController = ScrollController();
+  var _request = HttpRequest(API.BASE_URL);
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getAllMedicPlan();
   }
 
   void getAllMedicPlan() async {
-    var url = "https://api.test.xzlcorp.com/v0/patient/plan";
+    var url = "https://api.xinzhili.cn/v0/patient/plan";
     await request(url).then((onValue) {
-      var dataJson = json.decode(onValue);
-      print("请求到的数据:" + dataJson);
-      setState(() {
-        //将返回的json数据转换成model
-        mBaseMedicPlanResponse = BaseMedicPlanResponse.fromJson(onValue);
-      });
+      if (onValue != null) {
+        print("请求到的数据:" + onValue.toString());
+        // var dataJson = json.decode(onValue.body);
+        var dataJson = Convert.jsonDecode(onValue);
+        setState(() {
+          //将返回的json数据转换成model
+          mBaseMedicPlanResponse = BaseMedicPlanResponse.fromJson(dataJson);
+          print("=======initState===========>" +
+              mBaseMedicPlanResponse.data.plans.length.toString());
+        });
+      }
     });
   }
 
   //药品列表
-  Widget _MedicPlanListWidget(List newList, int index) {
+  Widget _medicPlanListWidget(List newList, int index) {
     return Container(
       padding: EdgeInsets.only(top: 5, bottom: 5),
       decoration: BoxDecoration(
@@ -42,38 +50,64 @@ class _MedicPlanListUIState extends State<MedicPlanListUI> {
       //水平方向
       child: Row(
         children: <Widget>[
-          _MedicPlanContent(newList[index].medicineName),
-          _MedicPlanContent(newList[index].count),
-          _MedicPlanContent(newList[index].dosage),
-          _MedicPlanContent(newList[index].cycleDays),
+          Flexible(
+              child:
+                  Card(child: _medicPlanContent(newList[index].medicineName))),
+          Flexible(
+              child: Card(
+                  child: _medicPlanContent(newList[index].count.toString()))),
+          Flexible(
+              child: Card(
+                  child: _medicPlanContent(newList[index].dosage.toString()))),
+          Flexible(
+              child: Card(
+                  child:
+                      _medicPlanContent(newList[index].cycleDays.toString())))
         ],
-      ),);
-  }
-
-  Widget _MedicPlanContent(String content) {
-    return Container(
-      padding: EdgeInsets.all(5),
-      width: 200,
-      child: Text(content,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(fontSize: 18),),
+      ),
     );
   }
 
+  Widget _medicPlanContent(String content) {
+    return Container(
+      padding: EdgeInsets.all(5),
+      width: 200,
+      child: Text(
+        content,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(fontSize: 18),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (mBaseMedicPlanResponse.data.plans.isNotEmpty) {
-      return ListView.builder(
-        controller: scrollController,
-        itemCount: mBaseMedicPlanResponse.data.plans.length,
-        itemBuilder: (context,index){
-          return _MedicPlanListWidget(mBaseMedicPlanResponse.data.plans,index);
-        },
-      );
+    if (mBaseMedicPlanResponse != null) {
+      if (mBaseMedicPlanResponse.data != null) {
+        if (mBaseMedicPlanResponse.data.plans.isNotEmpty) {
+          return Container(
+            height: 300.0,
+            padding: padding(),
+            color: Color(0xFFEFEFEF),
+            child: ListView.builder(
+              controller: scrollController,
+              shrinkWrap: true,
+              itemCount: mBaseMedicPlanResponse.data.plans.length,
+              itemBuilder: (context, index) {
+                return _medicPlanListWidget(
+                    mBaseMedicPlanResponse.data.plans, index);
+              },
+            ),
+          );
+        }
+      }
     }
     //没有数据返回空容器
     return Container();
+  }
+
+  padding() {
+    return EdgeInsets.only(left: 12, right: 12);
   }
 }
