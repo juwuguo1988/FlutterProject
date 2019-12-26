@@ -62,7 +62,7 @@ class _MedicPlanListUIState extends State<MedicPlanListUI> {
           Flexible(
               child: Card(
                   child:
-                      _medicPlanContent(newList[index].cycleDays.toString())))
+                      _medicPlanContent(newList[index].dosageFormUnit)))
         ],
       ),
     );
