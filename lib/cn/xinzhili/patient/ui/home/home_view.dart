@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/cn/xinzhili/patient/ui/home/home_page_view.dart';
-import 'package:flutter_app/cn/xinzhili/patient/ui/medic/medic_plan_view.dart';
+import 'package:flutter_app/cn/xinzhili/patient/ui/medic/medic_page_view.dart';
+import 'package:flutter_app/cn/xinzhili/patient/ui/user/user_page_view.dart';
 import 'package:flutter_app/cn/xinzhili/patient/utils/config/APPConstant.dart';
 
 /**
@@ -39,7 +40,7 @@ class _HomeViewUIState extends State<HomeViewUI>
     new HomePageViewUI(),
     new MedicPlanViewUI(),
     new HealthPage(),
-    new UserPage()
+    new UserPageView()
   ];
 
   @override
@@ -239,29 +240,11 @@ class MyDrawer extends StatelessWidget {
   }
 }
 
-class MedicPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Center(
-      child: new Text('MedicPage, index:'),
-    );
-  }
-}
-
 class HealthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Center(
       child: new Text('HealthPage, index:'),
-    );
-  }
-}
-
-class UserPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Center(
-      child: new Text('UserPage, index: '),
     );
   }
 }

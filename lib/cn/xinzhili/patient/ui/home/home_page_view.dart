@@ -79,6 +79,19 @@ class _HomePageView extends State<HomePageViewUI> {
                   child: Text("打开百度"),
                 )
               ],
+            ),
+            Column(
+              children: [
+                RaisedButton(
+                  color: Colors.blue,
+                  highlightColor: Colors.blue[700],
+                  colorBrightness: Brightness.dark,
+                  splashColor: Colors.grey,
+                  child: Text("登录"),
+                  shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                  onPressed: () {},
+                )
+              ],
             )
           ],
         ),
