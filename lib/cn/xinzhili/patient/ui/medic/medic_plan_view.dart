@@ -1,21 +1,17 @@
-import 'dart:collection';
 import 'dart:convert' as Convert;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/cn/xinzhili/patient/http/API.dart';
-import 'package:flutter_app/cn/xinzhili/patient/http/http_request.dart';
 import 'package:flutter_app/cn/xinzhili/patient/service/http_service.dart';
 import 'package:flutter_app/cn/xinzhili/patient/model/medic_plan_model.dart';
 
-class MedicPlanListUI extends StatefulWidget {
+class MedicPlanViewUI extends StatefulWidget {
   _MedicPlanListUIState createState() => _MedicPlanListUIState();
 }
 
-class _MedicPlanListUIState extends State<MedicPlanListUI> {
+class _MedicPlanListUIState extends State<MedicPlanViewUI> {
   BaseMedicPlanResponse mBaseMedicPlanResponse;
   var scrollController = ScrollController();
-  var _request = HttpRequest(API.BASE_URL);
 
   @override
   void initState() {
@@ -33,8 +29,6 @@ class _MedicPlanListUIState extends State<MedicPlanListUI> {
         setState(() {
           //将返回的json数据转换成model
           mBaseMedicPlanResponse = BaseMedicPlanResponse.fromJson(dataJson);
-          print("=======initState===========>" +
-              mBaseMedicPlanResponse.data.plans.length.toString());
         });
       }
     });
@@ -60,9 +54,8 @@ class _MedicPlanListUIState extends State<MedicPlanListUI> {
               child: Card(
                   child: _medicPlanContent(newList[index].dosage.toString()))),
           Flexible(
-              child: Card(
-                  child:
-                      _medicPlanContent(newList[index].dosageFormUnit)))
+              child:
+                  Card(child: _medicPlanContent(newList[index].dosageFormUnit)))
         ],
       ),
     );

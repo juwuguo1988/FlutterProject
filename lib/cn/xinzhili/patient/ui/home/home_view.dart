@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/cn/xinzhili/patient/ui/home/home_page_view.dart';
+import 'package:flutter_app/cn/xinzhili/patient/ui/medic/medic_plan_view.dart';
 import 'package:flutter_app/cn/xinzhili/patient/utils/config/APPConstant.dart';
 
 /**
@@ -34,8 +36,8 @@ class _HomeViewUIState extends State<HomeViewUI>
   int _selectIndex = 0;
   var _pageController = new PageController(initialPage: 0);
   var pages = <Widget>[
-    new HomePage(),
-    new MedicPage(),
+    new HomePageViewUI(),
+    new MedicPlanViewUI(),
     new HealthPage(),
     new UserPage()
   ];
@@ -119,7 +121,7 @@ class _HomeViewUIState extends State<HomeViewUI>
                   height: 20,
                 ),
                 title: Text(
-                  "健康",
+                  "达标",
                   style: TextStyle(
                     color: _selectIndex == 2
                         ? Color(0xFF3195FA)
@@ -233,15 +235,6 @@ class MyDrawer extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Center(
-      child: new Text('HomePage, index:'),
     );
   }
 }
