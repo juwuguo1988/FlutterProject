@@ -26,10 +26,12 @@ class _MedicPlanListUIState extends State<MedicPlanViewUI> {
         print("请求到的数据:" + onValue.toString());
         // var dataJson = json.decode(onValue.body);
         var dataJson = Convert.jsonDecode(onValue);
-        setState(() {
-          //将返回的json数据转换成model
-          mBaseMedicPlanResponse = BaseMedicPlanResponse.fromJson(dataJson);
-        });
+        if (mounted) {
+          setState(() {
+            //将返回的json数据转换成model
+            mBaseMedicPlanResponse = BaseMedicPlanResponse.fromJson(dataJson);
+          });
+        }
       }
     });
   }
