@@ -4,6 +4,7 @@ import 'package:flutter_app/cn/xinzhili/patient/ui/home/home_page_view.dart';
 import 'package:flutter_app/cn/xinzhili/patient/ui/medic/medic_page_view.dart';
 import 'package:flutter_app/cn/xinzhili/patient/ui/user/user_page_view.dart';
 import 'package:flutter_app/cn/xinzhili/patient/utils/config/APPConstant.dart';
+import 'package:flutter_orm_plugin/flutter_orm_plugin.dart';
 
 /**
  * TabBar + TabBarView
@@ -42,6 +43,24 @@ class _HomeViewUIState extends State<HomeViewUI>
     new HealthPage(),
     new UserPageView()
   ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    Map<String , Field> fields = new Map<String , Field>();
+    fields["userId"] = Field(FieldType.Text);
+    fields["name"] = Field(FieldType.Text);
+    fields["class"] = Field(FieldType.Text);
+    fields["score"] = Field(FieldType.Real);
+
+
+
+
+
+
+
+  }
 
   @override
   void dispose() {
