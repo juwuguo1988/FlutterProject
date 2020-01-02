@@ -48,18 +48,38 @@ class _HomeViewUIState extends State<HomeViewUI>
   void initState() {
     super.initState();
 
-    Map<String , Field> fields = new Map<String , Field>();
-    fields["userId"] = Field(FieldType.Text);
-    fields["name"] = Field(FieldType.Text);
-    fields["class"] = Field(FieldType.Text);
-    fields["score"] = Field(FieldType.Real);
+    Map<String, Field> fields = new Map<String, Field>();
+    fields["id"] = Field(FieldType.Text);
+    fields["medicineName"] = Field(FieldType.Text);
+    fields["takeAt"] = Field(FieldType.Text);
+    fields["cycleDays"] = Field(FieldType.Real);
 
+    FlutterOrmPlugin.createTable("XZL_DB", "MEDIC_PLAN", fields);
+    /**
+     * https://www.jianshu.com/p/a6529a04c979
+     *
+     * 插入数据
+        单条插入
+        Map m = {“name”:”william”, “class”:”class1″, “score”:96.5};
+        FlutterOrmPlugin.saveOrm(“MEDIC_PLAN”, m);
+        批量插入
+        List orms = new List();
+        for(int i = 0 ; i < 100 ; i++) {
+        Map m = {“name”:name, “class”:className, “score”:score};
+        orms.add(m);
+        }
+        FlutterOrmPlugin.batchSaveOrms(“MEDIC_PLAN”, orms);
 
+        全部查询
+        Query(“MEDIC_PLAN”).all().then((List l) {
 
+        });
 
+        查询第一条
+        Query(“MEDIC_PLAN”).first().then((Map m) {
 
-
-
+        });
+     */
   }
 
   @override
@@ -180,9 +200,10 @@ class _HomeViewUIState extends State<HomeViewUI>
     });
   }
 
-  void _onItemTapped(int index){
+  void _onItemTapped(int index) {
     //bottomNavigationBar 和pageview 关联
-    _pageController.animateToPage(index, duration: const Duration(milliseconds: 300), curve: Curves.ease);
+    _pageController.animateToPage(index,
+        duration: const Duration(milliseconds: 300), curve: Curves.ease);
   }
 }
 
