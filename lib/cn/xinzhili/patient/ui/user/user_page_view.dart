@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/cn/xinzhili/patient/ui/setting/user_setting_view.dart';
 import 'package:flutter_app/cn/xinzhili/patient/utils/config/APPConstant.dart';
 
 class UserPageView extends StatefulWidget {
@@ -45,19 +46,29 @@ class _UserViewUI extends State<UserPageView> {
               indent: 0.0,
               color: Colors.blue,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Image(
-                  image: AssetImage(APPConstant.ASSETS_IMG + 'ic_devices.png'),
-                  width: 20,
-                  height: 20,
-                ),
-                new Padding(
-                  padding: new EdgeInsets.all(10.0),
-                  child: new Text("设备管理"),
-                )
-              ],
+            new GestureDetector(
+              onTap: () {
+                print("======点击设备管理========");
+                // 使用 Navigator 跳转页面
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return UserSettingView();
+                }));
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Image(
+                    image:
+                        AssetImage(APPConstant.ASSETS_IMG + 'ic_devices.png'),
+                    width: 20,
+                    height: 20,
+                  ),
+                  new Padding(
+                    padding: new EdgeInsets.all(10.0),
+                    child: new Text("设备管理"),
+                  )
+                ],
+              ),
             ),
             Divider(
               height: 20.0,
@@ -112,8 +123,10 @@ class _UserViewUI extends State<UserPageView> {
 class MyScorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new Center(
-      child: new Text('我的积分'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("我的积分"),
+      ),
     );
   }
 }
